@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -45,6 +47,14 @@ public class MonthViewActivity extends AppCompatActivity {
         ArrayAdapter<String> dateAdapter = new ArrayAdapter<String>(this, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, item_date);
         GridView grid = (GridView) findViewById(R.id.gridview);
         grid.setAdapter(dateAdapter);
+
+        grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(!adapterView.getAdapter().getItem(i).equals(""))
+                    Toast.makeText(MonthViewActivity.this, Integer.toString(year) + "." + Integer.toString(month) + "." + adapterView.getAdapter().getItem(i), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         Button prevBtn = findViewById(R.id.prevMonth);
         prevBtn.setOnClickListener(new View.OnClickListener() {
@@ -83,9 +93,16 @@ public class MonthViewActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
 }
 /*
 참조한 코드
 Calender Set : https://blog.naver.com/PostView.naver?blogId=asap0628&logNo=220720089602&redirect=Dlog&widgetTypeCall=true&directAccess=false
 Grid View : https://kwanulee.github.io/AndroidProgramming/adapter-view/gridview.html
+Grid View Toast : https://nexthops.tistory.com/40
  */
