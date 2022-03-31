@@ -34,7 +34,7 @@
             android:layout_gravity="center"/>
 
         <Button
-            android:id="@+id/nextMOnth"
+            android:id="@+id/nextMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"

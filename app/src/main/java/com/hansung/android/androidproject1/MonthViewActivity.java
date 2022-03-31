@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -43,6 +45,43 @@ public class MonthViewActivity extends AppCompatActivity {
         ArrayAdapter<String> dateAdapter = new ArrayAdapter<String>(this, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, item_date);
         GridView grid = (GridView) findViewById(R.id.gridview);
         grid.setAdapter(dateAdapter);
+
+        Button prevBtn = findViewById(R.id.prevMonth);
+        prevBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                if(month > 1) {
+                    month -= 1;
+                }
+                else{
+                    year -= 1;
+                    month = 12;
+                }
+                Intent intent = new Intent(getApplicationContext(), MonthViewActivity.class);
+                intent.putExtra("Year", year);
+                intent.putExtra("Month", month);
+                startActivity(intent);
+            }
+        });
+        Button nextBtn = findViewById(R.id.nextMonth);
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                if(month < 12) {
+                    month += 1;
+                }
+                else{
+                    year += 1;
+                    month = 1;
+                }
+                Intent intent = new Intent(getApplicationContext(), MonthViewActivity.class);
+                intent.putExtra("Year", year);
+                intent.putExtra("Month", month);
+                startActivity(intent);
+            }
+        });
     }
 }
 /*
